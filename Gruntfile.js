@@ -201,19 +201,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Allow the use of non-minsafe AngularJS files. Automatically makes it
-    // minsafe compatible so Uglify does not destroy the ng references
-    ngmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.dist %>',
-          src: '*.js',
-          dest: '<%= yeoman.dist %>'
-        }]
-      }
-    },
-
     // Replace Google CDN references
     cdnify: {
       dist: {
@@ -334,7 +321,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'useminPrepare',
     'concat',
-    'ngmin',
     'uglify:dist'
   ]);
 

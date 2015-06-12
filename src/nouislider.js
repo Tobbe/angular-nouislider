@@ -18,9 +18,11 @@ angular.module('nouislider', []).directive('slider', function () {
       var slider = $(element);
       var toParsed;
       var callback = scope.callback ? scope.callback : 'slide';
+
       if (scope.ngFrom !== null && scope.ngTo !== null) {
         fromParsed = null;
         toParsed = null;
+
         slider.noUiSlider({
           start: [
             scope.ngFrom || scope.start,
@@ -34,6 +36,7 @@ angular.module('nouislider', []).directive('slider', function () {
             max: [parseFloat(scope.end)]
           }
         });
+
         slider.on(callback, function () {
           var from = slider.val()[0];
           var to = slider.val()[1];
@@ -44,24 +47,21 @@ angular.module('nouislider', []).directive('slider', function () {
             scope.ngTo = toParsed;
           });
         });
+
         scope.$watch('ngFrom', function (newVal) {
           if (newVal !== fromParsed) {
-            return slider.val([
-              newVal,
-              null
-            ]);
+            return slider.val([newVal, null]);
           }
         });
+
         scope.$watch('ngTo', function (newVal) {
           if (newVal !== toParsed) {
-            return slider.val([
-              null,
-              newVal
-            ]);
+            return slider.val([null, newVal]);
           }
         });
       } else {
         parsedValue = null;
+
         slider.noUiSlider({
           start: [scope.ngModel || scope.start],
           step: parseFloat(scope.step || 1),
@@ -70,6 +70,7 @@ angular.module('nouislider', []).directive('slider', function () {
             max: [parseFloat(scope.end)]
           }
         });
+
         slider.on(callback, function () {
           parsedValue = parseFloat(slider.val());
           return scope.$apply(function () {
@@ -77,6 +78,7 @@ angular.module('nouislider', []).directive('slider', function () {
             return scope.ngModel;
           });
         });
+
         scope.$watch('ngModel', function (newVal) {
           if (newVal !== parsedValue) {
             return slider.val(newVal);
