@@ -3,9 +3,9 @@ angular.module('nouislider', []).directive('slider', function () {
   return {
     restrict: 'A',
     scope: {
-      start: '@',
+      start: '=',
       step: '@',
-      end: '@',
+      end: '=',
       callback: '@',
       margin: '@',
       ngModel: '=',
@@ -85,6 +85,24 @@ angular.module('nouislider', []).directive('slider', function () {
           }
         });
       }
+
+      scope.$watch('start', function (newVal) {
+        slider.noUiSlider({
+          range: {
+            min: [parseFloat(newVal)],
+            max: [parseFloat(scope.ngEnd || scope.end)]
+          }
+        }, true);
+      });
+
+      scope.$watch('end', function (newVal) {
+        slider.noUiSlider({
+          range: {
+            min: [parseFloat(scope.ngStart || scope.start)],
+            max: [parseFloat(newVal)]
+          }
+        }, true);
+      });
     }
   };
 });
