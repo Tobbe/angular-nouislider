@@ -12,11 +12,13 @@ angular.module('nouislider', []).directive('slider', function () {
       ngFrom: '=',
       ngTo: '='
     },
-    link: function (scope, element, attrs) {
-      var callback, fromParsed, parsedValue, slider, toParsed;
-      slider = $(element);
-      callback = scope.callback ? scope.callback : 'slide';
-      if (scope.ngFrom != null && scope.ngTo != null) {
+    link: function (scope, element) {
+      var fromParsed;
+      var parsedValue;
+      var slider = $(element);
+      var toParsed;
+      var callback = scope.callback ? scope.callback : 'slide';
+      if (scope.ngFrom !== null && scope.ngTo !== null) {
         fromParsed = null;
         toParsed = null;
         slider.noUiSlider({
@@ -33,16 +35,16 @@ angular.module('nouislider', []).directive('slider', function () {
           }
         });
         slider.on(callback, function () {
-          var from, to, _ref;
-          _ref = slider.val(), from = _ref[0], to = _ref[1];
+          var from = slider.val()[0];
+          var to = slider.val()[1];
           fromParsed = parseFloat(from);
           toParsed = parseFloat(to);
           return scope.$apply(function () {
             scope.ngFrom = fromParsed;
-            return scope.ngTo = toParsed;
+            scope.ngTo = toParsed;
           });
         });
-        scope.$watch('ngFrom', function (newVal, oldVal) {
+        scope.$watch('ngFrom', function (newVal) {
           if (newVal !== fromParsed) {
             return slider.val([
               newVal,
@@ -50,7 +52,7 @@ angular.module('nouislider', []).directive('slider', function () {
             ]);
           }
         });
-        return scope.$watch('ngTo', function (newVal, oldVal) {
+        scope.$watch('ngTo', function (newVal) {
           if (newVal !== toParsed) {
             return slider.val([
               null,
@@ -71,10 +73,11 @@ angular.module('nouislider', []).directive('slider', function () {
         slider.on(callback, function () {
           parsedValue = parseFloat(slider.val());
           return scope.$apply(function () {
-            return scope.ngModel = parsedValue;
+            scope.ngModel = parsedValue;
+            return scope.ngModel;
           });
         });
-        return scope.$watch('ngModel', function (newVal, oldVal) {
+        scope.$watch('ngModel', function (newVal) {
           if (newVal !== parsedValue) {
             return slider.val(newVal);
           }
