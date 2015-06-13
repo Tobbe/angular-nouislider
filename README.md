@@ -41,4 +41,4 @@ That's it!
 
 ### Screenshot:
 
-![example](https://raw2.github.com/vasyabigi/angular-nouislider/master/example.jpg "angular-nouislider")
+![example](https://raw.githubusercontent.com/Tobbe/angular-nouislider/master/example.jpg "angular-nouislider")
